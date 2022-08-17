@@ -1,4 +1,4 @@
-import {Form, Button} from 'react-bootstrap'
+import {Container, Form, Button} from 'react-bootstrap'
 import { useEffect, useState, useContext } from 'react'
 import {useNavigate, Navigate, Link} from 'react-router-dom';
 import UserContext from '../UserContext';
@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 
 export default function Register(){
     const {user} = useContext(UserContext);
+    console.log(user)
     const history = useNavigate();
 
     // state hooks to store the values of the input fields
@@ -17,6 +18,14 @@ export default function Register(){
     const [verifyPassword, setVerifyPassword] = useState("")
     const [isActive, setIsActive] = useState(false)
 
+    useEffect(() => {
+        // validation to enable the submit button when all fields are populated and both passwords
+        if(email !== '' && firstName !== '' && lastName !== '' && mobile !== '' && password !== '' && mobile.length === 11){
+            setIsActive(true);
+        } else {
+            setIsActive(false);
+        }
+    }, [email, password])
 
     function registerUser(e) {
         // prevents page redirection via form submission
@@ -82,20 +91,21 @@ export default function Register(){
 
         // clear input fields
         setEmail('');
-        setPassword('');
         setFirstName('');
         setLastName('');
         setMobile('');
+        setPassword('');
+        setVerifyPassword('');
 
-        // setPassword2('');
     }
 
     return(
-        (user.id !== null) ?
-            <Navigate to="/shop"/>
-        :
+        // (user.id !== null) ?
+        //     <Navigate to="/shop"/>
+        // :
         <>
-        <h1>Registration</h1>
+        <Container>
+        <h1>Sign Up</h1>
 
         <Form onSubmit = {e => registerUser(e)}>
             <Form.Group controlId="userFirstName">
@@ -142,11 +152,11 @@ export default function Register(){
                 </Form.Text>
             </Form.Group>
 
-            <Form.Group controlId="userVerifyPassword">
+            <Form.Group controlId="userPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control 
                     type="password"
-                    placeholder="Enter your password here"
+                    placeholder="Minimum of 8 characters"
                     required
                     value = {password}
                     onChange = {e => setPassword(e.target.value)}
@@ -157,12 +167,13 @@ export default function Register(){
                 <Form.Label>Verify Password</Form.Label>
                 <Form.Control 
                     type="password"
-                    placeholder="Input your password again"
+                    placeholder="Passwords must match"
                     required
                     value = {verifyPassword}
                     onChange = {e => setVerifyPassword(e.target.value)}
                 />
             </Form.Group>
+            <p>Already have an account? <Link to="/login">Login Here</Link></p>
 
             { isActive ? 
             <Button className="mt-4 mb-5" variant="success" type="submit" id="submitBtn">
@@ -175,9 +186,9 @@ export default function Register(){
                 Register
             </Button>
 
-
             }
         </Form>
+        </Container>
     </>
     )
 }

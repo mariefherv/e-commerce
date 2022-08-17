@@ -1,6 +1,5 @@
 import {Link} from 'react-router-dom';
 import {Navbar, Container, Nav, Form, Button} from 'react-bootstrap';
-import {Register} from '../modals/Register';
 
 export default function AppNavbar(){
 	return (
@@ -9,10 +8,10 @@ export default function AppNavbar(){
 	  <Container className="justify-content-center">
 		<Nav fill variant="tabs" defaultActiveKey="/home">
 		<Nav.Item>
-			<Nav.Link href="/home">Home</Nav.Link>
+			<Nav.Link as={Link} to="/">Home</Nav.Link>
 		</Nav.Item>
 		<Nav.Item>
-			<Nav.Link eventKey="link-1">Shop</Nav.Link>
+			<Nav.Link as={Link} to="/products">Shop</Nav.Link>
 		</Nav.Item>
 		<Nav.Item>
 			<Form className="d-flex mx-3">

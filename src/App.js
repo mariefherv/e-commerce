@@ -1,13 +1,13 @@
+import {UserProvider} from './UserContext';
+import { ModalState } from './ModalContext';
 import {useEffect, useState} from 'react';
-import {Container} from 'react-bootstrap';
+import {Container, Modal} from 'react-bootstrap';
 import AppNavbar from './components/AppNavbar';
 import Landing from './components/Landing';
-import Register from './pages/Register';
-import Login from './pages/Login';
+import UserBox from './components/userBox'
 import Products from './pages/Products';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import './App.css';
-import {UserProvider} from './UserContext';
 
 function App() {
   const [user, setUser] = useState({
@@ -18,6 +18,10 @@ function App() {
 	const unsetUser = () => {
 		localStorage.clear();
 	};
+
+	const [openModal, setOpenModal] = useState(false)
+
+	const handleClose = () => setOpenModal(false);
 
   useEffect(() => {
 		fetch('http://localhost:4000/users/getUserDetails',{
@@ -44,20 +48,28 @@ function App() {
 		})
 	}, [])
 
+
   return (
     <>
     <UserProvider value={{user, setUser, unsetUser}}>
+	<ModalState value={{openModal, setOpenModal}}>
     <Router>
       <AppNavbar/>
-        <Container>
+	  {/* <Container> */}
           <Routes>
             <Route exact path="/" element={<Landing />}/>
-            <Route exact path="/register" element={<Register />}/>
-            <Route exact path="/login" element={<Login />}/>
             <Route exact path="/products" element={<Products />}/>
           </Routes>
-        </Container>
+        {/* </Container> */}
     </Router>
+
+        <Modal 
+		show={openModal}
+		onHide={handleClose}
+		contentClassName="custom-modal">
+				<UserBox/>
+		</Modal>
+	</ModalState>
     </UserProvider>
     </>
   );

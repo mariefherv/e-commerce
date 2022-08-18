@@ -1,5 +1,6 @@
 import ProductCard from '../components/ProductCard';
 import { useState, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
 
 export default function Products(){
     // console.log(coursesData);
@@ -27,8 +28,10 @@ export default function Products(){
 
     return(
         <>
+            <Container>
             <h1>Available Products</h1>
             {products}
+            </Container>
         </>
     )
 }

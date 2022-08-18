@@ -1,10 +1,14 @@
-import {Form, Button} from 'react-bootstrap'
-import { useEffect, useState, useContext } from 'react'
+import React, { useContext, useEffect, useState } from "react";
+import { AccountContext } from "./AccountContext";
+import { BoxContainer, FormContainer, SubmitButton, Input, MutedLink, BoldLink } from "./common";
 import {Navigate, Link} from 'react-router-dom';
-import UserContext from '../UserContext';
+import UserContext from '../../UserContext';
 import Swal from 'sweetalert2'
+import { Form } from "react-bootstrap";
 
-export default function Login(){
+export default function LoginForm() {
+    
+    const { switchToSignUp } = useContext(AccountContext);
 
     const {user, setUser} = useContext(UserContext);
 
@@ -15,6 +19,7 @@ export default function Login(){
     const [isActive, setIsActive] = useState(false)
 
     function loginUser(e) {
+        console.log(e)
         fetch('http://localhost:4000/users/login', {
 
         method : 'POST',
@@ -37,7 +42,7 @@ export default function Login(){
                 Swal.fire({
                     title: "Login Successful",
                     icon: "success",
-                    text: "Welcome to Booking App of 196!"
+                    text: "Welcome to the E-Commerce App"
                 }  
                 
                 )
@@ -77,7 +82,6 @@ export default function Login(){
         
     }
 
-
     useEffect(() => {
         if(email !== '' && password !== ''){
             setIsActive(true);
@@ -86,49 +90,29 @@ export default function Login(){
         }
     }, [email, password])
 
-    return(
-        (user.id !== null) ?
-            <Navigate to="/courses"/>
-        :
-        <>
-        <h1>Login</h1>
-
-        <Form onSubmit = {e => loginUser(e)}>
-            <Form.Group controlId="userEmail">
-                <Form.Label>Email Address</Form.Label>
-                <Form.Control 
-                    type = "email"
-                    placeholder ="Enter your email here"
-                    required
-                    value = {email}
-                    onChange = {e => setEmail(e.target.value)}
-                />
-            </Form.Group>
-
-            <Form.Group controlId="password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control 
-                    type="password"
-                    placeholder="Enter your password here"
-                    required
-                    value = {password}
-                    onChange = {e => setPassword(e.target.value)}
-                />
-            </Form.Group>
-            <p>Not yet registered? <Link to="/register">Register Here</Link></p>
-
-            { isActive ? 
-            <Button className="mt-4 mb-5" variant="success" type="submit" id="submitBtn">
-                Login
-            </Button>
+    return (
+    <BoxContainer>
+        <FormContainer>
+            <Input type="email" placeholder="Email"
+            value = {email}
+            onChange = {e => setEmail(e.target.value)}
+            />
+            <Input type="password" placeholder="Password"
+            value = {password}
+            onChange = {e => setPassword(e.target.value)}
+            />
+        </FormContainer>
+        <MutedLink href="#">Forgot password?</MutedLink>
+        {isActive ?
+            <SubmitButton type="submit" onClick={e => loginUser(e)}>Sign In</SubmitButton>
 
             :
+            
+            <SubmitButton type="submit" onClick={e => loginUser(e)} disabled>Sign In</SubmitButton>
 
-            <Button className="mt-4 mb-5" variant="danger" type="submit" id="submitBtn" disabled>
-                Login
-            </Button>
-            }
-        </Form>
-    </>
+        }
+        
+        <BoldLink href="#" onClick={switchToSignUp}>Sign Up</BoldLink>
+    </BoxContainer>
     )
 }

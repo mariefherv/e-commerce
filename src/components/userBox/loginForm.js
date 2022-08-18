@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AccountContext } from "./AccountContext";
 import { BoxContainer, FormContainer, SubmitButton, Input, MutedLink, BoldLink } from "./common";
-import {Navigate, Link} from 'react-router-dom';
-import UserContext from '../../UserContext';
+import {Navigate, Link, useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2'
-import { Form } from "react-bootstrap";
+import ModalContext from "../../ModalContext";
 
 export default function LoginForm() {
-    
+    const {setOpenModal} = useContext(ModalContext)
     const { switchToSignUp } = useContext(AccountContext);
 
-    const {user, setUser} = useContext(UserContext);
+    const location = useNavigate()
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -19,7 +18,6 @@ export default function LoginForm() {
     const [isActive, setIsActive] = useState(false)
 
     function loginUser(e) {
-        console.log(e)
         fetch('http://localhost:4000/users/login', {
 
         method : 'POST',
@@ -33,19 +31,19 @@ export default function LoginForm() {
 
         }).then(res => res.json())
         .then(data => {
-
-            console.log(data)
             if(typeof data.accessToken !== "undefined"){
                 localStorage.setItem('token',data.accessToken)
-                retrieveUserDetails(data.accessToken)
 
                 Swal.fire({
                     title: "Login Successful",
                     icon: "success",
                     text: "Welcome to the E-Commerce App"
-                }  
-                
-                )
+                })
+
+                location("/shop");
+                setOpenModal(false)
+
+
             } else {
                 Swal.fire({
                     title: "Authentication Failed",
@@ -61,25 +59,6 @@ export default function LoginForm() {
         setEmail('');
         setPassword('');
 
-    }
-
-    const retrieveUserDetails = (token) =>{
-        fetch('http://localhost:4000/users/getUserDetails',{
-        headers : {
-            Authorization: `Bearer ${token}`
-        }
-
-
-        }).then(res => res.json())
-        .then(data => {
-            console.log(data);
-
-            setUser({
-                id: data._id,
-                isAdmin: data.isAdmin
-            });
-        })
-        
     }
 
     useEffect(() => {

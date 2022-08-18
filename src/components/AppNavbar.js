@@ -1,8 +1,9 @@
 import {Link, NavLink} from 'react-router-dom';
-import {Navbar, Container, Nav, Form, Button} from 'react-bootstrap';
+import {Navbar, Container, Nav, Form, Button, NavDropdown} from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import ModalContext from '../ModalContext';
 import UserContext from '../UserContext';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 export default function AppNavbar(){
 	const {setOpenModal} = useContext(ModalContext)
@@ -59,10 +60,18 @@ export default function AppNavbar(){
 			<NavLink  
 			to="/">Home</NavLink>
 		</Nav.Item>
-		<Nav.Item>
-			<NavLink
-			to="/products" >Shop</NavLink>
-		</Nav.Item>
+		
+		{(user.isAdmin) ?
+			<Nav.Item>
+				<NavLink
+				to="/dashboard" >Dashboard</NavLink>
+			</Nav.Item>
+			:
+			<Nav.Item>
+				<NavLink
+				to="/products" >Shop</NavLink>
+			</Nav.Item>
+		}
 		</div>
 		<Nav.Item>
 			<Form className="d-flex mx-3">
@@ -77,13 +86,24 @@ export default function AppNavbar(){
 		</Nav.Item>
 		</Nav>
 	   </Container>
+	   {
+	   (user.isAdmin === false) &&
 	   <Nav.Item className="clickable mx-3"><img
 				src={require("../assets/cart-icon.png")}
 				width= "30"
 				height= "30"
 				className="d-inline-block align-top"
 		/></Nav.Item>
-
+	   }
+	   {
+	   (user.id === null) &&
+	   <Nav.Item className="clickable mx-3" onClick={()=>{setOpenModal(true)}}><img
+				src={require("../assets/cart-icon.png")}
+				width= "30"
+				height= "30"
+				className="d-inline-block align-top"
+		/></Nav.Item>
+	   }
 		{
 			(user.id === null) ?
 			<Nav.Item className="clickable me-4" onClick={()=>{setOpenModal(true)}}>
@@ -96,14 +116,27 @@ export default function AppNavbar(){
 			</Nav.Item>
 
 			:
-			<Nav.Item className="me-4" as={Link} to="/user">
-			<img
+			<NavDropdown className="me-5"
+				title={
+					<div className="pull-left">
+						<img
 						src={require("../assets/account-icon.png")}
 						width= "30"
 						height= "30"
-						className="d-inline-block align-top"
-				/>
-			</Nav.Item>
+						className="d-inline-block align-center"
+						/>
+						{user.firstName}
+					</div>
+				}
+				id="basic-nav-dropdown">
+				<div className="me-5">
+				<DropdownItem >Profile</DropdownItem>
+				<DropdownItem>Settings</DropdownItem>
+				<DropdownItem as={Link} to="/logout">Logout</DropdownItem>
+				</div>
+			
+			
+			</NavDropdown>
 		}
 	</Navbar>
 	</>

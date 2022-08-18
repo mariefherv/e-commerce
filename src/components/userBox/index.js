@@ -111,7 +111,7 @@ const expandingTransition = {
 
 export default function UserBox(props){
     const [isExpanded, setExpanded] = useState(false);
-    const [active, setActive] = useState("signup")
+    const [active, setActive] = useState("login")
 
     const playExpandingAnimation = () => {
         setExpanded(true);

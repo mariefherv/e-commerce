@@ -26,3 +26,17 @@ ul {
   padding:0;
 }
 
+.dropdown-toggle {
+  padding-left: 5%;
+  text-align: center;
+  justify-content: center;
+}
+
+.dropdown-toggle::after {
+  display: none !important; 
+}
+
+.dropdown-menu{
+  margin: 5% !important;
+
+}

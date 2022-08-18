@@ -8,10 +8,15 @@ import UserBox from './components/userBox'
 import Products from './pages/Products';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import './App.css';
+import Logout from './pages/Logout';
 
 function App() {
   const [user, setUser] = useState({
 		id: null,
+		firstName: null,
+		lastName: null,
+		mobile: null,
+		email: null,
 		isAdmin: null
 	});
 
@@ -30,17 +35,22 @@ function App() {
 			}
 		}).then(res => res.json())
 		.then(data =>{
-			// captures the data of whoever is logged in
-			console.log(data)
-
 			if(typeof data._id !== "undefined"){
 				setUser({
 					id: data._id,
+					firstName: data.firstName,
+					lastName: data.lastName,
+					mobile: data.mobileNo,
+					email: data.email,
 					isAdmin: data.isAdmin
 				});
 			} else {
 				setUser({
 					id: null,
+					firstName: null,
+					lastName: null,
+					mobile: null,
+					email: null,
 					isAdmin: null
 				})
 			}
@@ -59,16 +69,19 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Landing />}/>
             <Route exact path="/products" element={<Products />}/>
+			<Route exact path="/logout" element={<Logout/>}/>
           </Routes>
+		  
         {/* </Container> */}
-    </Router>
-
-        <Modal 
-		show={openModal}
-		onHide={handleClose}
-		contentClassName="custom-modal">
-				<UserBox/>
-		</Modal>
+    
+		<Modal 
+			show={openModal}
+			onHide={handleClose}
+			contentClassName="custom-modal">
+					<UserBox/>
+			</Modal>
+        
+	</Router>
 	</ModalState>
     </UserProvider>
     </>

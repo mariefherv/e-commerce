@@ -30,7 +30,6 @@ export default function SignUpForm() {
     function registerUser(e) {
         // prevents page redirection via form submission
         e.preventDefault()
-        console.log({firstName},{lastName},{email},{mobile},{password})
 
         fetch('http://localhost:4000/users/register', {
             method: 'POST',
@@ -53,6 +52,23 @@ export default function SignUpForm() {
                     text: 'Welcome to the Ecommerce App'
                 });
 
+                fetch('http://localhost:4000/users/login', {
+
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({
+                    email : email,
+                    password : password
+                })
+
+                }).then(res => res.json())
+                .then(data => {
+                    if(typeof data.accessToken !== "undefined"){
+                        localStorage.setItem('token',data.accessToken)
+                    }})
+                        
                 setEmail('');
                 setFirstName('');
                 setLastName('');

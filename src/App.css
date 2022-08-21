@@ -37,6 +37,46 @@ ul {
 }
 
 .dropdown-menu{
-  margin: 5% !important;
+  flex-direction: column;
+  text-align: center !important;
 
 }
+
+.landingPurple{
+  background-color: #3B28AB;
+}
+
+.browse {
+  color:black;
+  font-weight: 600;
+  font-size: 4vh;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.browse:hover {
+  cursor: pointer;
+  transform-origin: bottom left;
+  transform: scale(1.05);
+  transition: all 200ms ease-in-out;
+}
+
+.load {
+  position: relative;
+  display: inline-block;
+  animation: bounce 1s infinite;
+  animation-delay: calc(.1s * var(--i));
+  }
+  @keyframes bounce {
+    0%,40%,100% {
+      transform: translateY(0)
+    }
+    20% {
+      transform: translateY(-5px)
+    }
+  }
+
+  .customSpinner {
+    background-color: #3B28AB;
+  }
+

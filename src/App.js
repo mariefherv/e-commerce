@@ -1,14 +1,18 @@
 import {UserProvider} from './UserContext';
 import { ModalState } from './ModalContext';
 import {useEffect, useState} from 'react';
-import {Container, Modal} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import AppNavbar from './components/AppNavbar';
-import Landing from './components/Landing';
+import Landing from './pages/Landing';
 import UserBox from './components/userBox'
 import Products from './pages/Products';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import './App.css';
 import Logout from './pages/Logout';
+import Dashboard from './pages/Dashboard';
+import Error from './pages/Error';
+import Interface from './pages/Interface';
+import ViewOrders from './pages/ViewOrders';
 
 function App() {
   const [user, setUser] = useState({
@@ -54,7 +58,6 @@ function App() {
 					isAdmin: null
 				})
 			}
-			
 		})
 	}, [])
 
@@ -65,15 +68,25 @@ function App() {
 	<ModalState value={{openModal, setOpenModal}}>
     <Router>
       <AppNavbar/>
-	  {/* <Container> */}
+	  {(user.isAdmin) ?
           <Routes>
             <Route exact path="/" element={<Landing />}/>
-            <Route exact path="/products" element={<Products />}/>
+            <Route exact path="/hello" element={<Interface />}/>
+            <Route exact path="/products" element={<Products/>}/>
+            <Route exact path="/dashboard" element={<Dashboard/>}/>
+            <Route exact path="/dashboard/viewAllOrders" element={<ViewOrders/>}/>
 			<Route exact path="/logout" element={<Logout/>}/>
+			<Route exact path="/*" element={<Error/>}/>
           </Routes>
-		  
-        {/* </Container> */}
-    
+		  :
+		  <Routes>
+            <Route exact path="/" element={<Landing />}/>
+            <Route exact path="/products" element={<Products/>}/>
+			<Route exact path="/logout" element={<Logout/>}/>
+			<Route exact path="/*" element={<Error/>}/>
+          </Routes>
+
+	} 
 		<Modal 
 			show={openModal}
 			onHide={handleClose}

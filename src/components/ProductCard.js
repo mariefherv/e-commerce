@@ -4,32 +4,9 @@ import { Link } from 'react-router-dom';
 
 
 export default function ProductCard({productProp}){
-	// check to see if data was succesfully passed
-	// console.log(props)
-		// result: php-laravel (coursesData[0])
-	// console.log(typeof props);
 	
-	// Object Destructuring
 	const {name, description, price, _id} = productProp
 
-	// React hooks- useState -> store its state
-	// Syntax:
-		// const [getter, setter] = useState(initialGetterValue)
-	// const [count, setCount] = useState(0);
-	// // console.log(useState(0));
-
-	// // ACTIVITY
-	// const [seats, setSeat] = useState(10);
-
-	// function enroll(){
-	// 	if(seats>0){
-	// 		setSeat(seats - 1);
-	// 		setCount(count + 1);
-	// 	} else {
-	// 		alert("No more seats available, check back later.")
-	// 	}
-		
-	// 	// console.log(`Enrollees: ${seats}`);
 	// }
 	return(
 		<Row className="mt-3 mb-3">

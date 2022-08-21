@@ -30,35 +30,41 @@ export const MutedLink = styled.a`
 
 export const BoldLink = styled.a`
     font-size: 1rem;
-    color: rgb(85,239,196);
+    color: #3b28ab;
     font-weight: 500;
     text-decoration: none;
     margin-bottom: 5%;
 
 `;
 
+export const FormWarning = styled.div`
+    font-size: 0.8rem;
+    width: 80%;
+    text-align: center;
+    color: #FD7272;
+    font-weight: 400;
+    margin-bottom: 3px;
+    margin-bottom: 3px;
+
+`
+
 export const Input = styled.input`
     width: 80%;
     height: 60px;
     outline: none;
-    border: 1px solid rgba(200,200,200, 0.3);
+    border: 1px solid rgba(200,200,200, 0.5);
     border-radius: 75px;
     padding: 0px 10px;
-    margin: 0 0 2% 0;
-    border-bottom: 1.4px solid transparent;
+    margin: 2% 0 0 0;
     transition: all 200ms ease-in-out;
     
     &::placeholder{
         color: rgba(200,200,200,1);
     }
 
-    &:not(:last-of-type) {
-        border-bottom: 1.5px solid rgba(200, 200, 200, 0.4)
-    }
-
     &:focus {
         outline: none;
-        border-bottom: 2px solid rgb(85,239,196)
+        border: 2px solid rgb(250,140,255);
     }
 `
 
@@ -72,15 +78,16 @@ export const SubmitButton = styled.button`
     border-radius: 100px;
     cursor: pointer;
     transition: all, 240ms ease-in-out;
-    background: rgba(85,239,196,1);
-    background: linear-gradient(90deg, rgba(85,239,196,1) 31%, rgba(129,236,236,1) 100%);
+    background: #c05de5;
 
-    &:hover {
+
+    &:hover && {
         filter: brightness(110%);
     }
 
     &:disabled {
-        cursor: not-allowed;
+        background: rgba(200,200,200);
+        pointer-events: none;
     }
 
 `

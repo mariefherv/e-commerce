@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AccountContext } from "./AccountContext";
 import { BoxContainer, FormContainer, SubmitButton, Input, MutedLink, BoldLink } from "./common";
-import {Navigate, Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2'
 import ModalContext from "../../ModalContext";
+import UserContext from '../../UserContext';
 
 export default function LoginForm() {
+    const {setUser} = useContext(UserContext);
     const {setOpenModal} = useContext(ModalContext)
-    const { switchToSignUp } = useContext(AccountContext);
+    const { switchToSignUpOne } = useContext(AccountContext);
 
     const location = useNavigate()
 
@@ -18,6 +20,8 @@ export default function LoginForm() {
     const [isActive, setIsActive] = useState(false)
 
     function loginUser(e) {
+        e.preventDefault()
+        
         fetch('http://localhost:4000/users/login', {
 
         method : 'POST',
@@ -33,6 +37,7 @@ export default function LoginForm() {
         .then(data => {
             if(typeof data.accessToken !== "undefined"){
                 localStorage.setItem('token',data.accessToken)
+                retrieveUserDetails(data.accessToken)
 
                 Swal.fire({
                     title: "Login Successful",
@@ -40,7 +45,7 @@ export default function LoginForm() {
                     text: "Welcome to the E-Commerce App"
                 })
 
-                location("/shop");
+                location("/hello");
                 setOpenModal(false)
 
 
@@ -53,16 +58,45 @@ export default function LoginForm() {
             }
         
         })
-
-        e.preventDefault()
-
         setEmail('');
         setPassword('');
 
     }
 
+    const retrieveUserDetails = (token) =>{
+        fetch('http://localhost:4000/users/getUserDetails',{
+        headers : {
+            Authorization: `Bearer ${token}`
+        }
+        }).then(res => res.json())
+        .then(data => {
+            if(typeof data._id !== "undefined"){
+				setUser({
+					id: data._id,
+					firstName: data.firstName,
+					lastName: data.lastName,
+					mobile: data.mobileNo,
+					email: data.email,
+					isAdmin: data.isAdmin
+				});
+			} else {
+				setUser({
+					id: null,
+					firstName: null,
+					lastName: null,
+					mobile: null,
+					email: null,
+					isAdmin: null
+				})
+			}
+        })
+        
+    }
+
     useEffect(() => {
-        if(email !== '' && password !== ''){
+        const valid_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        if(email.match(valid_email) && password !== ''){
             setIsActive(true);
         } else {
             setIsActive(false);
@@ -91,7 +125,7 @@ export default function LoginForm() {
 
         }
         
-        <BoldLink href="#" onClick={switchToSignUp}>Sign Up</BoldLink>
+        <BoldLink href="#" onClick={switchToSignUpOne}>Sign Up</BoldLink>
     </BoxContainer>
     )
 }

@@ -12,9 +12,18 @@ import Logout from './pages/Logout';
 import Dashboard from './pages/Dashboard';
 import Error from './pages/Error';
 import Interface from './pages/Interface';
-import ViewOrders from './pages/ViewOrders';
+import ViewAllOrders from './pages/ViewAllOrders';
+import ProductView from './pages/ProductView';
+import { CheckoutProvider } from './CheckoutContext';
+import Checkout from './pages/Checkout';
+import EditProducts from './pages/EditProducts';
+import CreateProduct from './pages/CreateProduct';
+import Profile from './pages/Profile';
+import ViewOrderHistory from './pages/ViewOrderHistory';
 
 function App() {
+  const [checkout, setCheckout] = useState([])
+
   const [user, setUser] = useState({
 		id: null,
 		firstName: null,
@@ -33,7 +42,7 @@ function App() {
 	const handleClose = () => setOpenModal(false);
 
   useEffect(() => {
-		fetch('http://localhost:4000/users/getUserDetails',{
+		fetch('https://shrouded-bastion-22720.herokuapp.com//users/getUserDetails',{
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('token')}`
 			}
@@ -61,11 +70,11 @@ function App() {
 		})
 	}, [])
 
-
   return (
     <>
     <UserProvider value={{user, setUser, unsetUser}}>
 	<ModalState value={{openModal, setOpenModal}}>
+	<CheckoutProvider value={{checkout, setCheckout}}>
     <Router>
       <AppNavbar/>
 	  {(user.isAdmin) ?
@@ -73,9 +82,26 @@ function App() {
             <Route exact path="/" element={<Landing />}/>
             <Route exact path="/hello" element={<Interface />}/>
             <Route exact path="/products" element={<Products/>}/>
+			<Route exact path="/profile" element={<Profile/>}/>
             <Route exact path="/dashboard" element={<Dashboard/>}/>
-            <Route exact path="/dashboard/viewAllOrders" element={<ViewOrders/>}/>
+            <Route exact path="/dashboard/viewAllOrders" element={<ViewAllOrders/>}/>
+			<Route exact path="/dashboard/editProducts" element={<EditProducts/>}/>
+			<Route exact path="/dashboard/editProducts/create" element={<CreateProduct/>}/>
+			<Route exact path="/products/:productId" element={<ProductView/>}/>
 			<Route exact path="/logout" element={<Logout/>}/>
+			<Route exact path="/*" element={<Error/>}/>
+          </Routes>
+		  :
+		  (user.id !== null) ?
+		  <Routes>
+		  	<Route exact path="/hello" element={<Interface />}/>
+            <Route exact path="/" element={<Landing />}/>
+            <Route exact path="/products" element={<Products/>}/>
+			<Route exact path="/orders" element={<ViewOrderHistory/>}/>
+			<Route exact path="/logout" element={<Logout/>}/>
+			<Route exact path="/profile" element={<Profile/>}/>
+			<Route exact path="/products/:productId" element={<ProductView/>}/>
+			<Route exact path="/checkout" element={<Checkout/>}/>
 			<Route exact path="/*" element={<Error/>}/>
           </Routes>
 		  :
@@ -84,9 +110,30 @@ function App() {
             <Route exact path="/products" element={<Products/>}/>
 			<Route exact path="/logout" element={<Logout/>}/>
 			<Route exact path="/*" element={<Error/>}/>
+			<Route exact path="/products/:productId" element={<ProductView/>}/>
           </Routes>
 
-	} 
+	}
+
+	{/* <Routes>
+		<Route exact path="/" element={<Landing />}/>
+        <Route exact path="/products" element={<Products/>}/>
+		<Route exact path="/logout" element={<Logout/>}/>
+		<Route exact path="/products/:productId" element={<ProductView/>}/>
+		<Route exact path="/*" element={<Error/>}/>
+
+		{(user.id !== null) 
+			&& <Route exact path="/hello" element={<Logout/>}/>
+			&& <Route exact path="/logout" element={<Logout/>}/>
+		
+			&& (user.isAdmin) ?
+			<Route exact path="/dashboard" element={<Dashboard/>}/>
+            && <Route exact path="/dashboard/viewAllOrders" element={<ViewAllOrders/>}/>
+			:
+			<Route exact path="/checkout" element={<Products/>}/>
+		}
+	</Routes> */}
+
 		<Modal 
 			show={openModal}
 			onHide={handleClose}
@@ -95,6 +142,7 @@ function App() {
 			</Modal>
         
 	</Router>
+	</CheckoutProvider>
 	</ModalState>
     </UserProvider>
     </>

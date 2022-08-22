@@ -1,16 +1,27 @@
 import {Link, NavLink} from 'react-router-dom';
-import {Navbar, Container, Nav, Form, Button, NavDropdown} from 'react-bootstrap';
-import { useContext } from 'react';
+import {Navbar, Container, Nav, Form, Button, NavDropdown, Offcanvas, Row} from 'react-bootstrap';
+import { useContext, useEffect, useState } from 'react';
 import ModalContext from '../ModalContext';
 import UserContext from '../UserContext';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import logo from '../assets/KIO-Black.png'
+import CheckoutContext from '../CheckoutContext';
+import { Heading } from './commonProp';
 
 export default function AppNavbar(){
 	const {setOpenModal} = useContext(ModalContext)
 
 	const {user} = useContext(UserContext);
+	const {checkout} = useContext(CheckoutContext)
 
+	const [show, setShow] = useState(false)
+
+	const handleClose = () => setShow(false);
+  	const handleShow = () => setShow(true);
+
+	useEffect(()=> {
+		console.log(checkout.items)
+	})
 	return (
 	<>
 	<style type="text/css">
@@ -112,7 +123,7 @@ export default function AppNavbar(){
 	   </Container>
 	   {
 	   (user.isAdmin === false) &&
-	   <Nav.Item className="clickable mx-3">
+	   <Nav.Item className="clickable mx-3" onClick={handleShow}>
 	   		<svg height="30" width="30" fill="none" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
 				<path d="M1.00001 0.75H1.46618C2.39878 0.75 3.20759 1.39455 3.41573 2.30362L3.95638 4.66487" stroke="#3b28ab" strokeLinecap="round" strokeLinejoin="round"/>
 				<path d="M13.2025 5.49889C13.0642 6.96113 12.6495 8.17798 12.3014 8.92988C12.1225 9.31627 11.8083 9.61628 11.3966 9.7248C10.8927 9.85761 10.0258 10 8.625 10C7.22418 10 6.35732 9.85761 5.85345 9.7248C5.44172 9.61628 5.12747 9.31627 4.94859 8.92988C4.52389 8.01248 4 6.40293 4 4.5H12.25C12.8023 4.5 13.2545 4.94906 13.2025 5.49889Z" fill="#D7E0FF" stroke="#3b28ab" strokeLinecap="round" strokeLinejoin="round"/>
@@ -123,7 +134,7 @@ export default function AppNavbar(){
 	   }
 	   {
 	   (user.id === null) &&
-			<Nav.Item className="clickable mx-3" onClick={()=>{setOpenModal(true)}}>
+			<Nav.Item className="clickable mx-3" onClick={handleShow}>
 				<svg height="30" width="30" fill="none" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
 				<path d="M1.00001 0.75H1.46618C2.39878 0.75 3.20759 1.39455 3.41573 2.30362L3.95638 4.66487" stroke="#3b28ab" strokeLinecap="round" strokeLinejoin="round"/>
 				<path d="M13.2025 5.49889C13.0642 6.96113 12.6495 8.17798 12.3014 8.92988C12.1225 9.31627 11.8083 9.61628 11.3966 9.7248C10.8927 9.85761 10.0258 10 8.625 10C7.22418 10 6.35732 9.85761 5.85345 9.7248C5.44172 9.61628 5.12747 9.31627 4.94859 8.92988C4.52389 8.01248 4 6.40293 4 4.5H12.25C12.8023 4.5 13.2545 4.94906 13.2025 5.49889Z" fill="#D7E0FF" stroke="#3b28ab" strokeLinecap="round" strokeLinejoin="round"/>
@@ -147,13 +158,21 @@ export default function AppNavbar(){
 					</div>
 				}
 				id="basic-nav-dropdown">
-				<DropdownItem >Profile</DropdownItem>
+				<DropdownItem as={Link} to="/profile">Profile</DropdownItem>
 				<DropdownItem>Settings</DropdownItem>
 				<DropdownItem as={Link} to="/logout">Logout</DropdownItem>		
 			
 			</NavDropdown>
 		}
 	</Navbar>
+
+	<Offcanvas show={show} onHide={handleClose} placement="end">
+		<Row className="mt-3 ms-3">
+        <Heading>
+			Cart
+		</Heading>
+		</Row>
+    </Offcanvas>
 	</>
 	)	
 };

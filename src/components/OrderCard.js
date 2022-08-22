@@ -1,39 +1,40 @@
-import {useEffect, useState} from 'react';
-import { Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import {useContext, useEffect, useState} from 'react';
+import UserContext from '../UserContext';
 import { ElementCard, ElementDescription, ElementTitle } from './commonProp';
 import OrderProducts from './OrderProducts';
+import { CustomSpinnerSmall } from './Spinner';
 
 
 export default function OrderCard({orderProp}){
 
+    const {user} = useContext(UserContext)
+
     const[userEmail,setEmail] = useState("")
 	const {totalAmount, userId, _id, products, purchasedOn} = orderProp
     const[product,setProduct] = useState("")
+    const[isLoading,setIsLoading] = useState(true)
 
-    console.log(products)
 
-    fetch(`http://localhost:4000/users/${userId}`,{
+    useEffect(() => {
+        fetch(`https://shrouded-bastion-22720.herokuapp.com//users/${userId}`,{
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }
-    }).then(res=>res.json())
-    .then(data => {
-        setEmail(data.email)
-    }).catch(err => console.log(err))
-
-    useEffect(() => {
+        }).then(res=>res.json())
+        .then(data => {
+            setIsLoading(false)
+            setEmail(data.email)
+        }).catch(err => console.log(err))
+        
         setProduct(products.map(product => 
-            {   console.log(product)
-                return <OrderProducts key={product._id}
+            {   
+                return <OrderProducts key={product._id+purchasedOn}
                     productsProp = {product}/>
                 
             }
         ))
 
-    })
-
-    
+    }, [userId, products, purchasedOn])
     
 
 	return(
@@ -62,6 +63,10 @@ export default function OrderCard({orderProp}){
                 {purchasedOn}
             </ElementDescription>
             </div>
+            {isLoading ?
+            <CustomSpinnerSmall></CustomSpinnerSmall>
+            :
+            user.isAdmin &&
             <div>
             <ElementTitle>
                 By
@@ -69,7 +74,7 @@ export default function OrderCard({orderProp}){
             <ElementDescription>
                 {userEmail}
             </ElementDescription>
-            </div>
+            </div>}
             <div>
             <ElementTitle>
                 Items

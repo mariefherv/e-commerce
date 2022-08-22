@@ -77,6 +77,22 @@ ul {
   }
 
   .customSpinner {
+    color: #3B28AB;
     background-color: #3B28AB;
   }
 
+  .imageFit {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .inputContainer {
+    width: 30%;
+  }
+
+  .cardHov:hover {
+    cursor: pointer;
+  }
+
+  

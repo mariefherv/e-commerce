@@ -1,24 +1,21 @@
 import ProductCard from '../components/ProductCard';
 import { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
+import { Heading, Subtitles } from '../components/commonProp';
+import { CustomSpinner } from '../components/Spinner';
 
 export default function Products(){
-    // console.log(coursesData);
-    // console.log(coursesData[0]);
     const [products,setProducts] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    
 
-    // const courses = coursesData.map(course =>
-    //     {return(
-    //         <CourseCards key={course.id} courseProp= {course}/>            
-    //     )}
-        
-    // )
     useEffect(() => {
-        fetch("http://localhost:4000/products")
-    .then(res => res.json())
-    .then(data => {
-        console.log(data);
-        setProducts(data.map(product => {
+        setIsLoading(true)
+        fetch("https://shrouded-bastion-22720.herokuapp.com//products/active")
+        .then(res => res.json())
+        .then(data => {
+            setIsLoading(false)
+            setProducts(data.map(product => {
             return(
             <ProductCard key={product._id} productProp= {product}/>            
             )
@@ -28,9 +25,19 @@ export default function Products(){
 
     return(
         <>
-            <Container>
-            <h1>Available Products</h1>
-            {products}
+            <Container fluid>
+            <Row>
+                <Col className="d-flex flex-column justify-content-center align-items-center">
+                    <Heading>Welcome to Our Shop</Heading>
+                    <Subtitles>Feel free to browse all of our products!</Subtitles>
+                </Col>
+            </Row>
+            {isLoading ?
+            <CustomSpinner></CustomSpinner>
+            :
+            <Row className="d-flex flex-row justify-content-space-around ms-5">
+                {products}
+            </Row>}
             </Container>
         </>
     )

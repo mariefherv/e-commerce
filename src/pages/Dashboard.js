@@ -1,27 +1,26 @@
-import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { Container, Col, Row, Breadcrumb } from 'react-bootstrap';
+import { Container, Col } from 'react-bootstrap';
 import {Heading, Subtitles, Card, CardContainer, CardText} from '../components/commonProp';
-import Upload from "../functions/Upload";
+// import Upload from "../functions/Upload";
 
 
 export default function Dashboard(){
 
-    const [files, setFiles] = useState('')
+    // const [files,setFiles ] = useState('')
 
-    const [images, setImages] = useState('')
+    // const [images, setImages] = useState('')
 
 
-    function uploadImages(e) {
-        e.preventDefault()
+    // function uploadImages(e) {
+    //     e.preventDefault()
 
-        // Upload multiple files
-        console.log(files)
-        Upload(files)
+    //     // Upload multiple files
+    //     console.log(files)
+    //     Upload(files)
         
-    }
+    // }
 
-    // fetch('http://localhost:4000/images/view',{
+    // fetch('https://shrouded-bastion-22720.herokuapp.com//images/view',{
     //     method : 'GET'      
     //     }).then(res => res.json())
     //     .then(data => {
@@ -47,7 +46,7 @@ export default function Dashboard(){
             </Subtitles>
             <Col md={10} className="mt-4">
             <CardContainer>
-                <Card as={Link} to="/dashboard/viewAllOrders">
+                <Card as={Link} to="viewAllOrders">
                 <CardText>
                 View All Orders
                 </CardText>
@@ -57,7 +56,7 @@ export default function Dashboard(){
 	<path d="M4.75928 0.956573L4.75928 5.08195C4.75928 5.67868 5.42235 6.03643 5.92108 5.70878L6.58815 5.27054C6.83813 5.10632 7.16179 5.10632 7.41176 5.27054L8.09362 5.7185C8.58932 6.04415 9.24901 5.69279 9.25538 5.09973L9.30006 0.941828C8.92882 0.876599 7.97345 0.810029 7.06321 0.810029C6.15298 0.810029 5.1574 0.913574 4.75928 0.956573Z" fill="#ffffff" stroke="#3b28ab" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 </Card>
-                <Card>
+                <Card as={Link} to="editProducts">
                 <CardText>
                 Edit Products
                 </CardText>

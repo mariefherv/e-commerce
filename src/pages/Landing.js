@@ -1,16 +1,10 @@
-import { useContext } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
-import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
-import UserContext from '../UserContext';
-import { ElementContainer, Heading, Subtitles, Card, CardContainer, CardText, Title, HeadingWhite, Button } from '../components/commonProp';
+import { ElementContainer, Title, HeadingWhite } from '../components/commonProp';
 import logo from '../assets/Logo.png'
 import next from '../assets/next.png'
 
 export default function Landing() {
-
-  const {user} = useContext(UserContext)
-
   return (
 
 	<Container fluid>
@@ -19,6 +13,7 @@ export default function Landing() {
         <img src = {logo}
 		width="15%"
 		className="ms-5"
+		alt=""
 		/>
 		<Title className="text-align-center mb-3 ms-5">
 			<div className='py-4'>Empowered Women Empower The Nation</div>
@@ -29,6 +24,7 @@ export default function Landing() {
 		width="5%"
 		height="5%"
 		className="ms-2 mt-1"
+		alt=""
 		/>
 		</div>
 		</Link>

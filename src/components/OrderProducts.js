@@ -1,5 +1,4 @@
-import { useState } from "react"
-import { ElementDescription } from "./commonProp"
+import { useEffect, useState } from "react"
 import {CustomSpinnerSmall} from "./Spinner"
 
 
@@ -8,20 +7,24 @@ export default function OrderProducts({productsProp}){
     const[productName, setProductName] = useState("")
     const [isLoading, setIsLoading] = useState(true)
 
-    fetch(`http://localhost:4000/products/${productId}`
+    useEffect(() => {
+        fetch(`https://shrouded-bastion-22720.herokuapp.com//products/${productId}`
             ).then(res=>res.json())
             .then(data => {
                     setIsLoading(false)
                     setProductName(data.name)
             }).catch(err => console.log(err))
 
+    }, [productId])
+    
+
     return(
         isLoading ?
         <CustomSpinnerSmall></CustomSpinnerSmall>
         :
-        <ElementDescription>
+        <div>
                 {productName} (Quantity: {quantity})
-        </ElementDescription>
+        </div>
     )
 
 }

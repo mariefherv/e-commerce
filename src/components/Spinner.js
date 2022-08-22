@@ -13,7 +13,6 @@ export function CustomSpinner({}){
 
 export function CustomSpinnerSmall({}){
 	
-
 	return(
         <SpinnerContainer>
 		    <Spinner animation="grow" className='customSpinner' size="sm"/>

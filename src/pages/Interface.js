@@ -204,7 +204,7 @@ export default function Interface() {
 	<path d="M3.5 5.36708L7 0.75L10.5 5.36708" stroke="#3b28ab" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
         </Card>
-        <Card>
+        <Card as={Link} to="/orders">
         <CardText>
           View Orders
         </CardText>
@@ -217,7 +217,7 @@ export default function Interface() {
 	<path d="M10.7998 10.7259L8.70267 10.7259" stroke="#3b28ab" strokeLinecap="round"/>
         </svg>
         </Card>
-        <Card>
+        <Card as={Link} to="/profile">
         <CardText>
           Go to Profile
         </CardText>

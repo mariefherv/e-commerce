@@ -22,7 +22,7 @@ export default function LoginForm() {
     function loginUser(e) {
         e.preventDefault()
         
-        fetch('http://localhost:4000/users/login', {
+        fetch('https://shrouded-bastion-22720.herokuapp.com//users/login', {
 
         method : 'POST',
         headers : {
@@ -64,7 +64,7 @@ export default function LoginForm() {
     }
 
     const retrieveUserDetails = (token) =>{
-        fetch('http://localhost:4000/users/getUserDetails',{
+        fetch('https://shrouded-bastion-22720.herokuapp.com//users/getUserDetails',{
         headers : {
             Authorization: `Bearer ${token}`
         }
@@ -94,7 +94,7 @@ export default function LoginForm() {
     }
 
     useEffect(() => {
-        const valid_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        const valid_email = /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
         if(email.match(valid_email) && password !== ''){
             setIsActive(true);
@@ -124,7 +124,7 @@ export default function LoginForm() {
             <SubmitButton type="submit" onClick={e => loginUser(e)} disabled>Sign In</SubmitButton>
 
         }
-        
+        Don't have an account?
         <BoldLink href="#" onClick={switchToSignUpOne}>Sign Up</BoldLink>
     </BoxContainer>
     )

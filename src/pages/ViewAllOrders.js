@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { Heading, Subtitles } from '../components/commonProp';
 import OrderCard from '../components/OrderCard';
 import {CustomSpinner} from '../components/Spinner';
 
-export default function ViewOrders(){
+export default function ViewAllOrders(){
 
     // console.log(coursesData);
     // console.log(coursesData[0]);
@@ -14,14 +13,13 @@ export default function ViewOrders(){
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("http://localhost:4000/orders/viewAll", {
+        fetch("https://shrouded-bastion-22720.herokuapp.com//orders/viewAll", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
     .then(res => res.json())
     .then(data => {
-        console.log(data);
         setIsLoading(false)
         setOrders(data.map(order => {
             return(

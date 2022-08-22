@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
-import Carousel from 'react-bootstrap/Carousel';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import UserContext from '../UserContext';
-import { ElementContainer, Heading, Subtitles, Card, CardContainer, CardText, Title, HeadingWhite, Button } from '../components/commonProp';
+import { useNavigate } from 'react-router-dom';
+import { Heading, Subtitles } from '../components/commonProp';
 
 export default function Error(){
     const[time,setTime] = useState(5)

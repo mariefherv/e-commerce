@@ -2,7 +2,7 @@ import {Spinner} from 'react-bootstrap';
 import { SpinnerContainer } from './commonProp';
 
 
-export function CustomSpinner({}){
+export function CustomSpinner(){
 	
 	return(
         <SpinnerContainer>
@@ -11,7 +11,7 @@ export function CustomSpinner({}){
 	)	
 };
 
-export function CustomSpinnerSmall({}){
+export function CustomSpinnerSmall(){
 	
 	return(
         <SpinnerContainer>

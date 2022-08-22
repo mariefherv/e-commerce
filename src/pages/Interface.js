@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import UserContext from '../UserContext';
-import { ElementContainer, Heading, Subtitles, Card, CardContainer, CardText, Title, HeadingWhite, Button } from '../components/commonProp';
+import { ElementContainer, Heading, Subtitles, Card, CardContainer, CardText, HeadingWhite} from '../components/commonProp';
 
 export default function Interface() {
 

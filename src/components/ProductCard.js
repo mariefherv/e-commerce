@@ -1,38 +1,42 @@
-import {Row, Col, Card} from 'react-bootstrap';
-import {useContext, useState} from 'react';
-import { ProdCard, ElementDescription, ElementTitle, ProductTitle, ProductPrice, ProductSubtitle, ProductButton, ProductButton2 } from './commonProp';
+import {Row, Col} from 'react-bootstrap';
+import {useContext,  useState} from 'react';
+import { ProdCard, ProductTitle, ProductPrice, ProductSubtitle, ProductButton, ProductButton2 } from './commonProp';
 import imagePlaceholder from '../assets/imagePlaceholder.jpg'
 import { Link } from 'react-router-dom';
-import ModalContext from '../ModalContext';
 import CheckoutContext from '../CheckoutContext';
 import Swal from 'sweetalert2';
 
 
 export default function ProductCard({productProp}){
 
-	const {checkout, setCheckout} = useContext(CheckoutContext)
-	
 	const {name, price, _id, images, numberOfOrders} = productProp
-	const {setOpenModal} = useContext(ModalContext)
+	const {checkout, setCheckout} = useContext(CheckoutContext)
 	const [image,setImage] = useState(null)
 
 	if(images===null){
 		setImage(null)
 	}
 
-	// }
+
 	function addToCart(){
-        const order = {
-            "productId": _id,
-        }
-        setCheckout([...checkout,order])
-        console.log(checkout)
+		// check if product already exists in the cart
+		const exist = checkout.find(item => item.productId === _id)
+
+		if(exist){
+			exist.quantity +=1
+			setCheckout([...checkout])
+		} else {
+			setCheckout([...checkout,{
+				productId: _id,
+				quantity: 1
+			}])
+		}
 
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 1500,
             timerProgressBar: true,
           })
           
@@ -49,6 +53,7 @@ export default function ProductCard({productProp}){
 			<img
 			src= {imagePlaceholder}
 			width= "100%"
+			alt=""
 			/>
 			:
 			{image}

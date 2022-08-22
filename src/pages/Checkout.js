@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { CheckoutButton, CheckoutTotal, Heading, Subtitles } from '../components/commonProp';
 import { CustomSpinnerSmall } from '../components/Spinner';
 import CheckoutCard from '../components/CheckoutCard';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import CheckoutContext from '../CheckoutContext';
 
 export default function Checkout(){
 
@@ -13,6 +14,8 @@ export default function Checkout(){
     const [totalAmount, setTotalAmount] = useState(0)
     const location = useNavigate()
     const [isLoading, setIsLoading] = useState(true)
+
+    const {setCheckout} = useContext(CheckoutContext)
 
     const products = storedItems.map((product,index) =>
             {          
@@ -62,12 +65,13 @@ export default function Checkout(){
         .then(res => res.json())
         .then(data => {
             if(data){
+                localStorage.removeItem('items')
                 Swal.fire({
                     title: 'Purchase Complete!',
                     icon: 'success',
                     text: 'Thank you for your support <3 Abante Babae!'
                 })
-
+                setCheckout([])
                 location("/orders");
             } else {
                 Swal.fire({

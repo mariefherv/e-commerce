@@ -2,6 +2,7 @@ import {Row, Col} from 'react-bootstrap';
 import { useEffect, useState} from 'react';
 import { ProdCard, ProductTitle, ProductPrice, ProductSubtitle } from './commonProp';
 import imagePlaceholder from '../assets/imagePlaceholder.jpg'
+import { CustomSpinnerSmall } from './Spinner';
 
 
 
@@ -13,12 +14,14 @@ export default function CheckoutCard({productProp}){
     const [price, setPrice] = useState(0);
 	const [image,setImage] = useState(null)
 
+	const [isLoading, setIsLoading] = useState(true)
+
     useEffect(() =>
        { 
-
         fetch(`https://shrouded-bastion-22720.herokuapp.com/products/${productId}`)
         .then(res => res.json())
         .then(data => {
+			setIsLoading(false)
             setName(data.name)
             setPrice(data.price)
 			
@@ -30,6 +33,9 @@ export default function CheckoutCard({productProp}){
 
 	// }
 	return(
+		isLoading ?
+		<CustomSpinnerSmall></CustomSpinnerSmall>
+		:
 		<ProdCard className='m-3 d-flex flex-column align-items-center justify-content-space-between'>
 			{(image===null) ?
 			<img

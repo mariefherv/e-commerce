@@ -1,27 +1,74 @@
-import {Link, NavLink} from 'react-router-dom';
-import {Navbar, Container, Nav, Form, Button, NavDropdown, Offcanvas, Row} from 'react-bootstrap';
+import {Link, NavLink, useNavigate} from 'react-router-dom';
+import {Navbar, Container, Nav, NavDropdown, Offcanvas, Row} from 'react-bootstrap';
 import { useContext, useEffect, useState } from 'react';
 import ModalContext from '../ModalContext';
 import UserContext from '../UserContext';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import logo from '../assets/KIO-Black.png'
 import CheckoutContext from '../CheckoutContext';
-import { Heading } from './commonProp';
+import { Heading, ProductButton } from './commonProp';
+import CartCard from './CartCard';
+import Swal from "sweetalert2";
+
 
 export default function AppNavbar(){
 	const {setOpenModal} = useContext(ModalContext)
-
 	const {user} = useContext(UserContext);
-	const {checkout} = useContext(CheckoutContext)
+	const {checkout, setCheckout} = useContext(CheckoutContext)
+
+	const [products,setProducts] = useState("")
 
 	const [show, setShow] = useState(false)
+	const [empty,setEmpty] = useState(true)
 
 	const handleClose = () => setShow(false);
   	const handleShow = () => setShow(true);
 
+	const location = useNavigate()
+
 	useEffect(()=> {
-		console.log(checkout.items)
-	})
+		if(checkout.length !== 0){
+			setEmpty(false)
+		} else {
+			setEmpty(true)
+		}
+		setProducts(checkout.map((product,index) =>
+			{
+				return(
+                    <CartCard key={index} productProp= {product}/>
+                )  
+			}
+		))
+		
+	}, [checkout, setCheckout])
+
+	function checkoutItems(){
+		localStorage.setItem("items",JSON.stringify(checkout))
+		
+
+		let timerInterval
+        Swal.fire({
+        title: 'Redirecting you the checkout page',
+        html: 'Please hold on...',
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+            b.textContent = Swal.getTimerLeft()
+            }, 100)
+        },
+        willClose: () => {
+            clearInterval(timerInterval)
+        }
+        }).then((result) => {
+			setShow(false)
+            location("/checkout")
+        })
+	}
+
+
 	return (
 	<>
 	<style type="text/css">
@@ -36,10 +83,7 @@ export default function AppNavbar(){
       background-color: #3b28ab;
       color: white;
     }
-	
-	.search {
-		border-radius: 25px;
-	}
+
 
 	.search:focus {
 		border-color: #3b28ab;
@@ -76,6 +120,7 @@ export default function AppNavbar(){
 	<Navbar.Brand as={Link} to="/" className="ms-4 me-5">
 		<img src = {logo}
 		height="50px"
+		alt = ""
 		/>
 	</Navbar.Brand>
 	  <Container className="justify-content-center">
@@ -105,20 +150,6 @@ export default function AppNavbar(){
 			</Nav.Item>
 		}
 		</div>
-		{(user.isAdmin) ? <Nav.Item></Nav.Item>
-		:
-		<Nav.Item>
-			<Form className="d-flex mx-3">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2 search"
-              aria-label="Search"
-            />
-            <Button variant="custom">Search</Button>
-          </Form>
-		</Nav.Item>
-		}
 		</Nav>
 	   </Container>
 	   {
@@ -166,12 +197,25 @@ export default function AppNavbar(){
 		}
 	</Navbar>
 
-	<Offcanvas show={show} onHide={handleClose} placement="end">
-		<Row className="mt-3 ms-3">
-        <Heading>
-			Cart
-		</Heading>
-		</Row>
+	<Offcanvas show={show} onHide={handleClose} placement="end" scroll="true" bakcdrop="true" className="allowScroll d-flex justify-content-between">
+			<Row>
+            <Row className="mt-3 ms-3">
+            <Heading>
+                Cart
+            </Heading>
+            </Row>
+			<Row className="d-block w-100">
+				{products}
+			</Row>
+			</Row>
+			<Row className="d-flex justify-content-center justify-self-end">
+				{ empty ?
+					<ProductButton onClick={checkoutItems} disabled>Checkout</ProductButton>
+					:
+					<ProductButton onClick={checkoutItems}>Checkout</ProductButton>
+				}
+			</Row>
+			
     </Offcanvas>
 	</>
 	)	

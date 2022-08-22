@@ -157,6 +157,21 @@ export const ProdCard = styled.div`
     }
 `
 
+export const CardCart = styled.div`
+    margin: 0;
+    padding: 2%;
+    border: 1px solid rgb(200,200,200, 0.15);
+    width: 30%;
+    max-height: 100%;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.08) 0 0.2rem 0.5rem;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+
+
+`
+
 export const CardText = styled.h2`
     color: #3b28ab;
     font-weight: 400;

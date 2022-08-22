@@ -12,11 +12,12 @@ import CheckoutContext from "../CheckoutContext";
 export default function ProductView(){
     const {user} = useContext(UserContext);
     const {setOpenModal} = useContext(ModalContext)
-    const {setCheckout} = useContext(CheckoutContext)
+    const {checkout,setCheckout} = useContext(CheckoutContext)
+
     // allows us to gain access to methods that will allow us to redirect a user to a different page after enrolling a course
     const location = useNavigate();
 
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState([])
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -34,7 +35,7 @@ export default function ProductView(){
     useEffect(() =>
        { 
         localStorage.setItem("items",JSON.stringify(items))
-        setCheckout(items)
+
         fetch(`https://shrouded-bastion-22720.herokuapp.com/products/${productId}`)
         .then(res => res.json())
         .then(data => {
@@ -45,7 +46,7 @@ export default function ProductView(){
         })
       }
       
-      , [productId,items,setCheckout]
+      , [productId,items]
     );
 
     function addQuantity(){
@@ -59,21 +60,14 @@ export default function ProductView(){
     }
 
     function buyNow(){
-        // const order = {
-        //     totalAmount: quantity*price,
-        //     items: [{
-        //     'productId': {productId}.productId,
-        //     'quantity': quantity
-        //     }]
-        // }
         setItems([...items, {
-            "productId": {productId}.productId,
-            "quantity": quantity
+            productId: {productId}.productId,
+            quantity: quantity
         }])
 
         let timerInterval
         Swal.fire({
-        title: 'Redirecting you the the checkout page',
+        title: 'Redirecting you the checkout page',
         html: 'Please hold on...',
         timer: 2000,
         timerProgressBar: true,
@@ -93,18 +87,25 @@ export default function ProductView(){
     }
 
     function addToCart(){
-        setItems([...items, {
-            "productId": {productId}.productId,
-            "quantity": quantity
-        }])
+        // check if product already exists in the cart
+		const exist = checkout.find(item => item.productId === {productId}.productId)
 
-        localStorage.setItem("items",JSON.stringify(items))
+		if(exist){
+			exist.quantity +=1
+			setCheckout([...checkout])
+		} else {
+			setCheckout([...checkout,{
+				productId: {productId}.productId,
+				quantity: quantity
+			}])
+		}
+
 
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 1500,
             timerProgressBar: true,
           })
           

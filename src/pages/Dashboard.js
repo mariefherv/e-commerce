@@ -20,7 +20,7 @@ export default function Dashboard(){
         
     // }
 
-    // fetch('https://shrouded-bastion-22720.herokuapp.com//images/view',{
+    // fetch('https://shrouded-bastion-22720.herokuapp.com/images/view',{
     //     method : 'GET'      
     //     }).then(res => res.json())
     //     .then(data => {

@@ -15,7 +15,7 @@ export default function CartCard({productProp}){
     useEffect(() =>
        { 
 
-        fetch(`https://shrouded-bastion-22720.herokuapp.com//products/${productId}`)
+        fetch(`https://shrouded-bastion-22720.herokuapp.com/products/${productId}`)
         .then(res => res.json())
         .then(data => {
             setName(data.name)

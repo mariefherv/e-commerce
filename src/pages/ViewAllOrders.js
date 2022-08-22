@@ -13,7 +13,7 @@ export default function ViewAllOrders(){
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("https://shrouded-bastion-22720.herokuapp.com//orders/viewAll", {
+        fetch("https://shrouded-bastion-22720.herokuapp.com/orders/viewAll", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

@@ -10,7 +10,7 @@ export default function Landing() {
     const [mobileNo, setMobileNo] = useState("")
 
     useEffect(() =>{
-        fetch('https://shrouded-bastion-22720.herokuapp.com//users/getUserDetails',{
+        fetch('https://shrouded-bastion-22720.herokuapp.com/users/getUserDetails',{
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

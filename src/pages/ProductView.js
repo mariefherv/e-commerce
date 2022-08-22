@@ -35,7 +35,7 @@ export default function ProductView(){
        { 
         localStorage.setItem("items",JSON.stringify(items))
         setCheckout(items)
-        fetch(`https://shrouded-bastion-22720.herokuapp.com//products/${productId}`)
+        fetch(`https://shrouded-bastion-22720.herokuapp.com/products/${productId}`)
         .then(res => res.json())
         .then(data => {
             setName(data.name)
@@ -124,7 +124,7 @@ export default function ProductView(){
     }
 
     function updateProduct(){
-        fetch(`https://shrouded-bastion-22720.herokuapp.com//products/updateProduct/${productId}`,
+        fetch(`https://shrouded-bastion-22720.herokuapp.com/products/updateProduct/${productId}`,
         {   method: 'PUT',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,

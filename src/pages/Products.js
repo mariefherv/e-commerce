@@ -11,7 +11,7 @@ export default function Products(){
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("https://shrouded-bastion-22720.herokuapp.com//products/active")
+        fetch("https://shrouded-bastion-22720.herokuapp.com/products/active")
         .then(res => res.json())
         .then(data => {
             setIsLoading(false)

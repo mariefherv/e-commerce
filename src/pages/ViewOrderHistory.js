@@ -12,7 +12,7 @@ export default function ViewOrderHistory(){
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("https://shrouded-bastion-22720.herokuapp.com//orders/", {
+        fetch("https://shrouded-bastion-22720.herokuapp.com/orders/", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

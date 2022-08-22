@@ -42,7 +42,7 @@ function App() {
 	const handleClose = () => setOpenModal(false);
 
   useEffect(() => {
-		fetch('https://shrouded-bastion-22720.herokuapp.com//users/getUserDetails',{
+		fetch('https://shrouded-bastion-22720.herokuapp.com/users/getUserDetails',{
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('token')}`
 			}

@@ -16,7 +16,7 @@ export default function CreateProduct(){
 
 
     function createProduct(){
-        fetch(`https://shrouded-bastion-22720.herokuapp.com//products/createProduct`,
+        fetch(`https://shrouded-bastion-22720.herokuapp.com/products/createProduct`,
         {   method: 'POST',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,

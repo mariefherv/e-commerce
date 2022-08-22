@@ -16,7 +16,7 @@ export default function OrderCard({orderProp}){
 
 
     useEffect(() => {
-        fetch(`https://shrouded-bastion-22720.herokuapp.com//users/${userId}`,{
+        fetch(`https://shrouded-bastion-22720.herokuapp.com/users/${userId}`,{
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }

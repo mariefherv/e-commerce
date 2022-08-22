@@ -22,7 +22,7 @@ export default function LoginForm() {
     function loginUser(e) {
         e.preventDefault()
         
-        fetch('https://shrouded-bastion-22720.herokuapp.com//users/login', {
+        fetch('https://shrouded-bastion-22720.herokuapp.com/users/login', {
 
         method : 'POST',
         headers : {
@@ -64,7 +64,7 @@ export default function LoginForm() {
     }
 
     const retrieveUserDetails = (token) =>{
-        fetch('https://shrouded-bastion-22720.herokuapp.com//users/getUserDetails',{
+        fetch('https://shrouded-bastion-22720.herokuapp.com/users/getUserDetails',{
         headers : {
             Authorization: `Bearer ${token}`
         }

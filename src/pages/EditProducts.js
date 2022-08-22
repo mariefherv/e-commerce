@@ -13,7 +13,7 @@ export default function EditProducts(){
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("https://shrouded-bastion-22720.herokuapp.com//products",
+        fetch("https://shrouded-bastion-22720.herokuapp.com/products",
         {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

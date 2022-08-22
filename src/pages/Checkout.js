@@ -26,7 +26,7 @@ export default function Checkout(){
 
         for(let i=0; i<storedItems.length; i++){
             subtotals.push(await 
-            fetch(`https://shrouded-bastion-22720.herokuapp.com//products/${storedItems[i].productId}`)
+            fetch(`https://shrouded-bastion-22720.herokuapp.com/products/${storedItems[i].productId}`)
             .then(res => res.json())
             .then(data => 
                 {   
@@ -47,7 +47,7 @@ export default function Checkout(){
     
     function createOrder() {
 
-        fetch("https://shrouded-bastion-22720.herokuapp.com//orders/createOrder",
+        fetch("https://shrouded-bastion-22720.herokuapp.com/orders/createOrder",
         {
         method: "POST",
         headers: {

@@ -1,6 +1,6 @@
 import {Row, Col, InputGroup, Button, Form} from 'react-bootstrap';
 import {useContext, useEffect, useState} from 'react';
-import { ProductTitle, ProductPrice, ProductSubtitle, CardCart } from './commonProp';
+import { CartTitle, ProductPrice, CartSubtitle, CardCart } from './commonProp';
 import CheckoutContext from '../CheckoutContext';
 import { CustomSpinnerSmall } from './Spinner';
 
@@ -87,9 +87,9 @@ export default function CartCard({productProp}){
 			} */}
 			<Row className="d-flex p-0 mt-3 w-100">
 				<Col md={7} className="d-flex justify-content-start">
-					<ProductTitle className="mb-0">
+					<CartTitle className="mb-0">
                 	{name}
-            		</ProductTitle>
+            		</CartTitle>
 				</Col>
 				<Col md={5} className="d-flex justify-content-end">
 					<ProductPrice >
@@ -98,12 +98,12 @@ export default function CartCard({productProp}){
 				</Col>
 			</Row>
 			<Row className="d-flex p-0 w-100">
-				<Col md={8} className="d-flex justify-content-start">
-					<ProductSubtitle>
+				<Col md={7} className="d-flex justify-content-start">
+					<CartSubtitle>
                 	Quantity
-            		</ProductSubtitle>
+            		</CartSubtitle>
 				</Col>
-				<Col md={4}>
+				<Col md={5}>
 				<InputGroup >
 					<Button variant="secondary" onClick={subQuantity} size="sm">-</Button>
 						<Form.Control size="sm"
@@ -115,16 +115,16 @@ export default function CartCard({productProp}){
 				</InputGroup>
 				</Col>
 			</Row>
-            <Row className="d-flex p-0 w-100">
+            <Row className="d-flex p-0 w-100 mt-2">
                 <Col md={6}>
                     <ProductPrice>
                         Subtotal
                     </ProductPrice>
                 </Col>
                 <Col md={6} className="d-flex justify-content-end">
-                <ProductTitle className="mb-0">
+                <CartTitle className="mb-0">
                     &#8369; {price*newQuantity}
-            	</ProductTitle>
+            	</CartTitle>
                 </Col>
             </Row>
 			<Row className="d-flex w-100 bg p-2 my-2" onClick={removeFromCart}>

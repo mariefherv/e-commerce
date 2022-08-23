@@ -55,6 +55,18 @@ export const ProductSubtitle = styled.h2`
     color: #636e72;
 `;
 
+export const CartTitle = styled.h2`
+    font-weight: 600;
+    font-size: 1.5em;
+    color: #3b28ab;
+`;
+
+export const CartSubtitle = styled.h2`
+    font-weight: 400;
+    font-size: 1.2em;
+    color: #636e72;
+`;
+
 export const ElementDescription = styled.h2`
     font-weight: 600;
     font-size: 3vh;

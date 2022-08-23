@@ -197,7 +197,7 @@ export default function AppNavbar(){
 		}
 	</Navbar>
 
-	<Offcanvas show={show} onHide={handleClose} placement="end" scroll="true" bakcdrop="true" className="allowScroll d-flex justify-content-between">
+	<Offcanvas show={show} onHide={handleClose} placement="end" scroll="true" bakcdrop="true" className="allowScroll d-flex justify-content-between w-25">
 			<Row>
             <Row className="mt-3 ms-3">
             <Heading>

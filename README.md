@@ -1,6 +1,6 @@
 # E-commerce (sample)
 
-## This project is to showcase a simple E-commerce website with the following features (as of 08/28/2022):
+## This repo is a simple E-commerce website with the following features (as of 08/28/2022):
 - Sign In / Sign Up
 - Add to Cart (For both registered and unregistered users)
 - Check out (registered users only)

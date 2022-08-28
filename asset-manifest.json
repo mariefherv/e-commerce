@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/e-commerce/static/css/main.2a98b084.css",
+    "main.js": "/e-commerce/static/js/main.0cf93b2a.js",
+    "static/media/Logo.png": "/e-commerce/static/media/Logo.13b62441ffd870bbdeda.png",
+    "static/media/KIO-Black.png": "/e-commerce/static/media/KIO-Black.c2282a6b1c55f36d841a.png",
+    "static/media/imagePlaceholder.jpg": "/e-commerce/static/media/imagePlaceholder.553720b6b01410c76058.jpg",
+    "static/media/add.svg": "/e-commerce/static/media/add.de7b09d0dfb83d63b19a66c44a84c953.svg",
+    "index.html": "/e-commerce/index.html",
+    "main.2a98b084.css.map": "/e-commerce/static/css/main.2a98b084.css.map",
+    "main.0cf93b2a.js.map": "/e-commerce/static/js/main.0cf93b2a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2a98b084.css",
+    "static/js/main.0cf93b2a.js"
+  ]
+}

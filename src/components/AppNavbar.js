@@ -212,7 +212,10 @@ export default function AppNavbar(){
 				{ empty ?
 					<ProductButton onClick={checkoutItems} disabled>Checkout</ProductButton>
 					:
+					user.id !== null ?
 					<ProductButton onClick={checkoutItems}>Checkout</ProductButton>
+					:
+					<ProductButton onClick={handleShow}>Checkout</ProductButton>
 				}
 			</Row>
 			

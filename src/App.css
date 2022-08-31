@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-.cardHighlight {
-  min-height: 100%;
-}
-
 .custom-modal {
   background-position: absolute !important;
   border-radius: 5% !important;

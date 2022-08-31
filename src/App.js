@@ -95,11 +95,11 @@ function App() {
 		  :
 		  (user.id !== null) ?
 		  <Routes>
-		  	<Route exact path="/hello" element={<Interface />}/>
             <Route exact path="/" element={<Landing />}/>
+			<Route exact path="/hello" element={<Interface />}/>
+			<Route exact path="/logout" element={<Logout/>}/>
             <Route exact path="/products" element={<Products/>}/>
 			<Route exact path="/orders" element={<ViewOrderHistory/>}/>
-			<Route exact path="/logout" element={<Logout/>}/>
 			<Route exact path="/profile" element={<Profile/>}/>
 			<Route exact path="/products/:productId" element={<ProductView/>}/>
 			<Route exact path="/checkout" element={<Checkout/>}/>
@@ -108,39 +108,20 @@ function App() {
 		  :
 		  <Routes>
             <Route exact path="/" element={<Landing />}/>
-            <Route exact path="/products" element={<Products/>}/>
 			<Route exact path="/logout" element={<Logout/>}/>
-			<Route exact path="/*" element={<Error/>}/>
+            <Route exact path="/products" element={<Products/>}/>
 			<Route exact path="/products/:productId" element={<ProductView/>}/>
+			<Route exact path="/*" element={<Error/>}/>		
           </Routes>
 
 	}
 
-	{/* <Routes>
-		<Route exact path="/" element={<Landing />}/>
-        <Route exact path="/products" element={<Products/>}/>
-		<Route exact path="/logout" element={<Logout/>}/>
-		<Route exact path="/products/:productId" element={<ProductView/>}/>
-		<Route exact path="/*" element={<Error/>}/>
-
-		{(user.id !== null) 
-			&& <Route exact path="/hello" element={<Logout/>}/>
-			&& <Route exact path="/logout" element={<Logout/>}/>
-		
-			&& (user.isAdmin) ?
-			<Route exact path="/dashboard" element={<Dashboard/>}/>
-            && <Route exact path="/dashboard/viewAllOrders" element={<ViewAllOrders/>}/>
-			:
-			<Route exact path="/checkout" element={<Products/>}/>
-		}
-	</Routes> */}
-
-		<Modal 
-			show={openModal}
-			onHide={handleClose}
-			contentClassName="custom-modal">
-					<UserBox/>
-			</Modal>
+	<Modal 
+		show={openModal}
+		onHide={handleClose}
+		contentClassName="custom-modal">
+		<UserBox/>
+	</Modal>
         
 	</Router>
 	</CheckoutProvider>

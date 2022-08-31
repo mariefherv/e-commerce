@@ -52,7 +52,7 @@ export default function ProductCard({productProp}){
 			{(image===null) ?
 			<img
 			src= {imagePlaceholder}
-			width= "100%"
+			height= "100%"
 			alt=""
 			/>
 			:

@@ -151,7 +151,7 @@ export function SignUpFormTwo() {
             if(email.match(valid_email)){
                 setValidEmail(true)
                 // check if email already exists
-                fetch('https://shrouded-bastion-22720.herokuapp.com/users/checkEmail', {
+                fetch('http://localhost:4000/users/checkEmail', {
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json'
@@ -212,7 +212,7 @@ export function SignUpFormTwo() {
         e.preventDefault();
         setIsFetching(true)
         // register user using data from session storage and local var
-        fetch('https://shrouded-bastion-22720.herokuapp.com/users/register', {
+        fetch('http://localhost:4000/users/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type' : 'application/json'
@@ -257,7 +257,7 @@ export function SignUpFormTwo() {
     }
 
     const retrieveUserDetails = (token) =>{
-        fetch('https://shrouded-bastion-22720.herokuapp.com/users/getUserDetails',{
+        fetch('http://localhost:4000/users/getUserDetails',{
         headers : {
             Authorization: `Bearer ${token}`
         }

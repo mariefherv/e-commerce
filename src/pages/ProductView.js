@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button, InputGroup, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, InputGroup, Form, Carousel } from "react-bootstrap";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import UserContext from "../UserContext";
@@ -23,7 +23,8 @@ export default function ProductView(){
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
     const [dateUpdate, setDateUpdate] = useState(0);
-    const [image] = useState(null)
+    const [images, setImages] = useState([])
+    const [image, setImage] = useState([])
 
     const [quantity, setQuantity] = useState(1);
     const [editState, setEditState] = useState(false)
@@ -36,20 +37,32 @@ export default function ProductView(){
        { 
         localStorage.setItem("items",JSON.stringify(items))
 
-        fetch(`https://shrouded-bastion-22720.herokuapp.com/products/${productId}`)
+        fetch(`http://localhost:4000/products/${productId}`)
         .then(res => res.json())
         .then(data => {
             setName(data.name)
             setDescription(data.description)
             setPrice(data.price)
             setDateUpdate(data.updatedOn)
+            setImages(data.images)
         })
-      }
-      
-      , [productId,items]
+
+        setImage(images.map( image => {
+            fetch(`http://localhost:4000/images/view/${image.imageId}`,{
+			method : 'GET'})
+			.then(res => res.json())
+			.then(data => {
+				if(data!==undefined){
+                    return data
+				}
+			})
+        }))
+
+
+      }, [productId,items,images]
     );
 
-    function addQuantity(){
+     function addQuantity(){
         setQuantity(quantity+1)
     }
 
@@ -125,7 +138,7 @@ export default function ProductView(){
     }
 
     function updateProduct(){
-        fetch(`https://shrouded-bastion-22720.herokuapp.com/products/updateProduct/${productId}`,
+        fetch(`http://localhost:4000/products/updateProduct/${productId}`,
         {   method: 'PUT',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -159,6 +172,7 @@ export default function ProductView(){
             
             })
     }
+
 return (
     <>
     {!user.isAdmin && 
@@ -173,14 +187,37 @@ return (
       </Col>
         <Col md={7} className="text-align-center">
         <ElementContainer>
-        {(image===null) ?
+        {(images.length===0) ?
 			<img
 			src= {imagePlaceholder}
             className="imageFit"
             alt=""
 			/>
 			:
-			{image}
+			<Carousel>
+
+            {
+                image.map(image => {
+                console.log(image)
+
+                return ( 
+                    <Carousel.Item>
+                        <img
+                        className="d-block w-100"
+                        src="https://place-puppy.com/300x300"
+                        alt="First slide"
+                        />
+                    {/* <img
+                        src={`data:${image.contentType}; base64,${image.imageBase64}`}
+                        width= "100%"
+                        alt= ""
+                        /> */}
+                    </Carousel.Item>
+                )
+                })
+            }
+           
+            </Carousel>
 		}
       </ElementContainer>
       </Col>
@@ -246,14 +283,14 @@ return (
       </Col>
         <Col md={7} className="text-align-center">
         <ElementContainer>
-        {(image===null) ?
+        {(images===null) ?
 			<img
 			src= {imagePlaceholder}
             className="imageFit"
             alt=""
 			/>
 			:
-			{image}
+			{images}
 		}
       </ElementContainer>
       </Col>

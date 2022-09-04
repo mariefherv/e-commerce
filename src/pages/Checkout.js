@@ -29,7 +29,7 @@ export default function Checkout(){
 
         for(let i=0; i<storedItems.length; i++){
             subtotals.push(await 
-            fetch(`https://shrouded-bastion-22720.herokuapp.com/products/${storedItems[i].productId}`)
+            fetch(`http://localhost:4000/products/${storedItems[i].productId}`)
             .then(res => res.json())
             .then(data => 
                 {   
@@ -50,7 +50,7 @@ export default function Checkout(){
     
     function createOrder() {
 
-        fetch("https://shrouded-bastion-22720.herokuapp.com/orders/createOrder",
+        fetch("http://localhost:4000/orders/createOrder",
         {
         method: "POST",
         headers: {

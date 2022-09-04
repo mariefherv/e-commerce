@@ -20,7 +20,7 @@ export default function EditProductsCard({productProp}){
 	}
 
 	function archiveProduct(){
-        fetch(`https://shrouded-bastion-22720.herokuapp.com/products/archiveProduct/${_id}`,
+        fetch(`http://localhost:4000/products/archiveProduct/${_id}`,
         {   method: 'PUT',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -50,7 +50,7 @@ export default function EditProductsCard({productProp}){
     }
 
     function activateProduct(){
-        fetch(`https://shrouded-bastion-22720.herokuapp.com/products/activateProduct/${_id}`,
+        fetch(`http://localhost:4000/products/activateProduct/${_id}`,
         {   method: 'PUT',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

@@ -16,7 +16,7 @@ export default function OrderCard({orderProp}){
 
 
     useEffect(() => {
-        fetch(`https://shrouded-bastion-22720.herokuapp.com/users/${userId}`,{
+        fetch(`http://localhost:4000/users/${userId}`,{
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -26,6 +26,7 @@ export default function OrderCard({orderProp}){
             setEmail(data.email)
         }).catch(err => console.log(err))
         
+        console.log(products)
         setProduct(products.map(product => 
             {   
                 return <OrderProducts key={product._id+purchasedOn}

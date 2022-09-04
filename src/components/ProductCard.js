@@ -1,11 +1,10 @@
 import {Row, Col} from 'react-bootstrap';
-import {useContext,  useState} from 'react';
+import {useContext,  useEffect,  useState} from 'react';
 import { ProdCard, ProductTitle, ProductPrice, ProductSubtitle, ProductButton, ProductButton2 } from './commonProp';
 import imagePlaceholder from '../assets/imagePlaceholder.jpg'
 import { Link } from 'react-router-dom';
 import CheckoutContext from '../CheckoutContext';
 import Swal from 'sweetalert2';
-
 
 export default function ProductCard({productProp}){
 
@@ -13,10 +12,21 @@ export default function ProductCard({productProp}){
 	const {checkout, setCheckout} = useContext(CheckoutContext)
 	const [image,setImage] = useState(null)
 
-	if(images===null){
-		setImage(null)
-	}
 
+	useEffect(() => {
+		if(images.length===0){
+			setImage(null)
+		} else {
+			// console.log(images[0].imageId)
+			fetch(`http://localhost:4000/images/view/${images[0].imageId}`,{
+			method : 'GET'})
+			.then(res => res.json())
+			.then(data => {
+				if(data!==undefined){
+					setImage(data)
+				}
+			})
+	}}, [images])
 
 	function addToCart(){
 		// check if product already exists in the cart
@@ -56,7 +66,11 @@ export default function ProductCard({productProp}){
 			alt=""
 			/>
 			:
-			{image}
+			<img
+            src={`data:${image.contentType}; base64,${image.imageBase64}`}
+            width= "100%"
+			alt= ""
+            />
 			}
 
 			<Row className="d-flex p-0 mt-3 w-100">

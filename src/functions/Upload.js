@@ -10,7 +10,7 @@ export default function Upload(files){
     }
 
     if(files.length===1){
-        fetch('https://shrouded-bastion-22720.herokuapp.com/images/uploadProfilePicture', {
+        fetch('http://localhost:4000/images/uploadProfilePicture', {
 
         method : 'POST',
         body: formData
@@ -20,7 +20,7 @@ export default function Upload(files){
            {console.log(data)
             console.log("Uploaded successfully!")})
     } else {
-        fetch('https://shrouded-bastion-22720.herokuapp.com/images/uploadProductPictures', {
+        fetch('http://localhost:4000/images/uploadProductPictures', {
 
         method : 'POST',
         body: formData

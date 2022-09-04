@@ -18,7 +18,7 @@ export default function CheckoutCard({productProp}){
 
     useEffect(() =>
        { 
-        fetch(`https://shrouded-bastion-22720.herokuapp.com/products/${productId}`)
+        fetch(`http://localhost:4000/products/${productId}`)
         .then(res => res.json())
         .then(data => {
 			setIsLoading(false)

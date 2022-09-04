@@ -43,7 +43,7 @@ function App() {
 
   useEffect(() => {
 		document.title = 'Ka-Ilongga'
-		fetch('https://shrouded-bastion-22720.herokuapp.com/users/getUserDetails',{
+		fetch('http://localhost:4000/users/getUserDetails',{
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('token')}`
 			}

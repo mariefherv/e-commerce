@@ -7,7 +7,7 @@ import { BackButton, Description, EditButton, ElementContainer, Heading, Heading
 import imagePlaceholder from '../assets/imagePlaceholder.jpg';
 import ModalContext from "../ModalContext";
 import CheckoutContext from "../CheckoutContext";
-
+import ImageCard from "../components/ImageCard"
 
 export default function ProductView(){
     const {user} = useContext(UserContext);
@@ -24,7 +24,6 @@ export default function ProductView(){
     const [price, setPrice] = useState(0);
     const [dateUpdate, setDateUpdate] = useState(0);
     const [images, setImages] = useState([])
-    const [image, setImage] = useState([])
 
     const [quantity, setQuantity] = useState(1);
     const [editState, setEditState] = useState(false)
@@ -40,27 +39,20 @@ export default function ProductView(){
         fetch(`http://localhost:4000/products/${productId}`)
         .then(res => res.json())
         .then(data => {
+            // get all data of the product
             setName(data.name)
             setDescription(data.description)
             setPrice(data.price)
             setDateUpdate(data.updatedOn)
-            setImages(data.images)
+
+             // if images are available
+            if (data.images.length !== 0){
+                setImages(data.images)
+            }         
         })
-
-        setImage(images.map( image => {
-            fetch(`http://localhost:4000/images/view/${image.imageId}`,{
-			method : 'GET'})
-			.then(res => res.json())
-			.then(data => {
-				if(data!==undefined){
-                    return data
-				}
-			})
-        }))
-
-
-      }, [productId,items,images]
+      }, [productId,items]
     );
+
 
      function addQuantity(){
         setQuantity(quantity+1)
@@ -194,29 +186,15 @@ return (
             alt=""
 			/>
 			:
-			<Carousel>
-
-            {
-                image.map(image => {
-                console.log(image)
-
-                return ( 
-                    <Carousel.Item>
-                        <img
-                        className="d-block w-100"
-                        src="https://place-puppy.com/300x300"
-                        alt="First slide"
-                        />
-                    {/* <img
-                        src={`data:${image.contentType}; base64,${image.imageBase64}`}
-                        width= "100%"
-                        alt= ""
-                        /> */}
-                    </Carousel.Item>
-                )
-                })
-            }
-           
+            
+			<Carousel className="imageFit" variant="dark">
+                {images.map(image => {
+                    return (
+                        <Carousel.Item key={image._id}>
+                            <ImageCard imageProp= {image}/>
+                        </Carousel.Item>
+                    )
+                })}        
             </Carousel>
 		}
       </ElementContainer>

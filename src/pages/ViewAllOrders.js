@@ -13,7 +13,7 @@ export default function ViewAllOrders(){
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("http://localhost:4000/orders/viewAll", {
+        fetch("https://capstone-3-api-5zh3.onrender.com/orders/viewAll", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

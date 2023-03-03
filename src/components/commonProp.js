@@ -152,10 +152,9 @@ export const ElementCard = styled.div`
 `
 
 export const ProdCard = styled.div`
-    padding: 2%;
     border: 1px solid rgb(200,200,200, 0.15);
-    width: 30%;
-    max-height: 60%;
+    width: 100%;
+    height: 100%;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.08) 0 0.5rem 0.7rem;
     border-radius: 2em;

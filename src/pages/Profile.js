@@ -10,7 +10,7 @@ export default function Landing() {
     const [mobileNo, setMobileNo] = useState("")
 
     useEffect(() =>{
-        fetch('http://localhost:4000/users/getUserDetails',{
+        fetch('https://capstone-3-api-5zh3.onrender.com/users/getUserDetails',{
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

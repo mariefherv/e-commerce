@@ -20,7 +20,7 @@ export default function Dashboard(){
         
     // }
 
-    // fetch('http://localhost:4000/images/view',{
+    // fetch('https://capstone-3-api-5zh3.onrender.com/images/view',{
     //     method : 'GET'      
     //     }).then(res => res.json())
     //     .then(data => {

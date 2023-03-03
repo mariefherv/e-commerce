@@ -18,7 +18,7 @@ export default function ProductCard({productProp}){
 			setImage(null)
 		} else {
 			// console.log(images[0].imageId)
-			fetch(`http://localhost:4000/images/view/${images[0].imageId}`,{
+			fetch(`https://capstone-3-api-5zh3.onrender.com/images/view/${images[0].imageId}`,{
 			method : 'GET'})
 			.then(res => res.json())
 			.then(data => {
@@ -58,17 +58,18 @@ export default function ProductCard({productProp}){
     }
 
 	return(
-		<ProdCard className='m-3 d-flex flex-column align-items-center justify-content-space-between'>
+		<Col md={4} xs={6} className='my-3'>
+		<ProdCard className='px-3 py-4 d-flex flex-column align-items-center'>
 			{(image===null) ?
 			<img
 			src= {imagePlaceholder}
-			height= "100%"
+			width= "100%"
 			alt=""
 			/>
 			:
 			<img
             src={`data:${image.contentType}; base64,${image.imageBase64}`}
-            width= "100%"
+            width = "100%"
 			alt= ""
             />
 			}
@@ -105,5 +106,6 @@ export default function ProductCard({productProp}){
 
 
         </ProdCard>
+		</Col>
 	)	
 };

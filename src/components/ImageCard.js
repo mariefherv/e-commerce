@@ -10,7 +10,7 @@ export default function ImageCard({imageProp}){
     const {imageId} = imageProp
 
     useEffect(() => {
-        fetch(`http://localhost:4000/images/view/${imageId}`
+        fetch(`https://capstone-3-api-5zh3.onrender.com/images/view/${imageId}`
             ).then(res=>res.json())
             .then(data => {
                 setContentType(data.contentType)

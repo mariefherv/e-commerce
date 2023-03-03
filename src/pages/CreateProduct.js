@@ -16,7 +16,7 @@ export default function CreateProduct(){
 
 
     function createProduct(){
-        fetch(`http://localhost:4000/products/createProduct`,
+        fetch(`https://capstone-3-api-5zh3.onrender.com/products/createProduct`,
         {   method: 'POST',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,

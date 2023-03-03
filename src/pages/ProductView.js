@@ -14,7 +14,6 @@ export default function ProductView(){
     const {setOpenModal} = useContext(ModalContext)
     const {checkout,setCheckout} = useContext(CheckoutContext)
 
-    // allows us to gain access to methods that will allow us to redirect a user to a different page after enrolling a course
     const location = useNavigate();
 
     const [items, setItems] = useState([])
@@ -36,7 +35,7 @@ export default function ProductView(){
        { 
         localStorage.setItem("items",JSON.stringify(items))
 
-        fetch(`http://localhost:4000/products/${productId}`)
+        fetch(`https://capstone-3-api-5zh3.onrender.com/products/${productId}`)
         .then(res => res.json())
         .then(data => {
             // get all data of the product
@@ -130,7 +129,7 @@ export default function ProductView(){
     }
 
     function updateProduct(){
-        fetch(`http://localhost:4000/products/updateProduct/${productId}`,
+        fetch(`https://capstone-3-api-5zh3.onrender.com/products/updateProduct/${productId}`,
         {   method: 'PUT',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -261,14 +260,23 @@ return (
       </Col>
         <Col md={7} className="text-align-center">
         <ElementContainer>
-        {(images===null) ?
+        {(images.length===0) ?
 			<img
 			src= {imagePlaceholder}
             className="imageFit"
             alt=""
 			/>
 			:
-			{images}
+            
+			<Carousel className="imageFit" variant="dark">
+                {images.map(image => {
+                    return (
+                        <Carousel.Item key={image._id}>
+                            <ImageCard imageProp= {image}/>
+                        </Carousel.Item>
+                    )
+                })}        
+            </Carousel>
 		}
       </ElementContainer>
       </Col>

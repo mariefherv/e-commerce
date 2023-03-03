@@ -29,7 +29,7 @@ export default function Checkout(){
 
         for(let i=0; i<storedItems.length; i++){
             subtotals.push(await 
-            fetch(`http://localhost:4000/products/${storedItems[i].productId}`)
+            fetch(`https://capstone-3-api-5zh3.onrender.com/products/${storedItems[i].productId}`)
             .then(res => res.json())
             .then(data => 
                 {   
@@ -50,7 +50,7 @@ export default function Checkout(){
     
     function createOrder() {
 
-        fetch("http://localhost:4000/orders/createOrder",
+        fetch("https://capstone-3-api-5zh3.onrender.com/orders/createOrder",
         {
         method: "POST",
         headers: {
@@ -110,6 +110,7 @@ export default function Checkout(){
                 </Col>
             </Row>
             </Container>
+            
         </>
     )
 }

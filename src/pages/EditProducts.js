@@ -13,7 +13,7 @@ export default function EditProducts(){
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("http://localhost:4000/products",
+        fetch("https://capstone-3-api-5zh3.onrender.com/products",
         {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -44,7 +44,8 @@ export default function EditProducts(){
             {isLoading ?
             <CustomSpinner></CustomSpinner>
             :
-            <Row className="d-flex flex-row justify-content-space-around ms-5">
+            <Row className="d-flex flex-row justify-content-space-around m-3">
+                <Col md={4} xs={6} className='my-3'>
                 <ProdCard className='m-3 d-flex flex-column align-items-center justify-content-space-between cardHov' as={Link}
                 to="create">
                 <img
@@ -54,6 +55,7 @@ export default function EditProducts(){
                 />
                 <HeadingSub className="mt-5">Create New Product</HeadingSub>
                 </ProdCard>
+                </Col>
                 {products}
             </Row>
             }

@@ -10,7 +10,7 @@ export default function Upload(files){
     }
 
     if(files.length===1){
-        fetch('http://localhost:4000/images/uploadProfilePicture', {
+        fetch('https://capstone-3-api-5zh3.onrender.com/images/uploadProfilePicture', {
 
         method : 'POST',
         body: formData
@@ -20,7 +20,7 @@ export default function Upload(files){
            {console.log(data)
             console.log("Uploaded successfully!")})
     } else {
-        fetch('http://localhost:4000/images/uploadProductPictures', {
+        fetch('https://capstone-3-api-5zh3.onrender.com/images/uploadProductPictures', {
 
         method : 'POST',
         body: formData

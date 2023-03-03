@@ -1,5 +1,5 @@
 import {Row, Col} from 'react-bootstrap';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import { ProdCard, ProductTitle, ProductPrice, ProductSubtitle,  ProductButton2, ArchiveButton, ActivateButton, ActiveStatus, ArchivedStatus } from './commonProp';
 import imagePlaceholder from '../assets/imagePlaceholder.jpg'
 import { Link } from 'react-router-dom';
@@ -15,12 +15,23 @@ export default function EditProductsCard({productProp}){
     const [active,setActive] = useState(isActive)
 
 
-	if(images===null){
-		setImage(null)
-	}
+	useEffect(() => {
+		if(images.length===0){
+			setImage(null)
+		} else {
+			// console.log(images[0].imageId)
+			fetch(`https://capstone-3-api-5zh3.onrender.com/images/view/${images[0].imageId}`,{
+			method : 'GET'})
+			.then(res => res.json())
+			.then(data => {
+				if(data!==undefined){
+					setImage(data)
+				}
+			})
+	}}, [images])
 
 	function archiveProduct(){
-        fetch(`http://localhost:4000/products/archiveProduct/${_id}`,
+        fetch(`https://capstone-3-api-5zh3.onrender.com/products/archiveProduct/${_id}`,
         {   method: 'PUT',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -50,7 +61,7 @@ export default function EditProductsCard({productProp}){
     }
 
     function activateProduct(){
-        fetch(`http://localhost:4000/products/activateProduct/${_id}`,
+        fetch(`https://capstone-3-api-5zh3.onrender.com/products/activateProduct/${_id}`,
         {   method: 'PUT',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -80,15 +91,20 @@ export default function EditProductsCard({productProp}){
     }
 
 	return(
-		<ProdCard className='m-3 d-flex flex-column align-items-center justify-content-space-between'>
+        <Col md={4} xs={6} className='my-3'>
+		<ProdCard className='px-3 py-4 d-flex flex-column align-items-center'>
 			{(image===null) ?
 			<img
 			src= {imagePlaceholder}
 			width= "100%"
-            alt=""
+			alt=""
 			/>
 			:
-			{image}
+			<img
+            src={`data:${image.contentType}; base64,${image.imageBase64}`}
+            width= "100%"
+			alt= ""
+            />
 			}
             <Row className="p-0 mt-3 w-20 justify-content-start">
                 {active && <ActiveStatus>Active</ActiveStatus>}
@@ -124,8 +140,7 @@ export default function EditProductsCard({productProp}){
                 </Col>
 
 			</Row>        
-
-
         </ProdCard>
+        </Col>
 	)	
 };

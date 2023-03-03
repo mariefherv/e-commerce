@@ -21,7 +21,7 @@ export default function CartCard({productProp}){
     useEffect(() =>
        { 
 
-        fetch(`http://localhost:4000/products/${productId}`)
+        fetch(`https://capstone-3-api-5zh3.onrender.com/products/${productId}`)
         .then(res => res.json())
         .then(data => {
 			setIsLoading(false)

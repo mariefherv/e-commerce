@@ -43,7 +43,7 @@ function App() {
 
   useEffect(() => {
 		document.title = 'Ka-Ilongga'
-		fetch('http://localhost:4000/users/getUserDetails',{
+		fetch('https://capstone-3-api-5zh3.onrender.com/users/getUserDetails',{
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem('token')}`
 			}

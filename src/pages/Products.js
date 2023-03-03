@@ -11,7 +11,7 @@ export default function Products(){
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("http://localhost:4000/products/active")
+        fetch("https://capstone-3-api-5zh3.onrender.com/products/active")
         .then(res => res.json())
         .then(data => {
             setIsLoading(false)
@@ -35,7 +35,7 @@ export default function Products(){
             {isLoading ?
             <CustomSpinner></CustomSpinner>
             :
-            <Row className="d-flex flex-row justify-content-space-around ms-5">
+            <Row className="d-flex flex-row justify-content-space-around m-3">
                 {products}
             </Row>}
             </Container>

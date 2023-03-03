@@ -12,7 +12,7 @@ export default function ViewOrderHistory(){
 
     useEffect(() => {
         setIsLoading(true)
-        fetch("http://localhost:4000/orders/", {
+        fetch("https://capstone-3-api-5zh3.onrender.com/orders/", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
